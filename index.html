@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="L.B.R.LOG — Análises e percepções pessoais sobre videogames." />
-  <meta property="og:title"       content="L.B.R.LOG — Reviews &amp; Análises" />
+  <meta property="og:title" content="L.B.R.LOG — Reviews &amp; Análises" />
   <meta property="og:description" content="Percepções honestas sobre videogames. Sem fórmula, sem patrocínio." />
-  <meta property="og:type"        content="website" />
-  <meta name="twitter:card"       content="summary" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
   <title>L.B.R.LOG — Reviews & Análises</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+    rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
 
   <!-- Canvas de partículas (fundo animado) -->
@@ -71,19 +72,14 @@
     <button class="filter-btn" data-filter="ação">Ação</button>
     <button class="filter-btn" data-filter="rpg">RPG</button>
     <button class="filter-btn" data-filter="terror">Terror</button>
+    <button class="filter-btn" data-filter="fps">FPS</button>
     <button class="filter-btn" data-filter="ps5">PS5</button>
     <button class="filter-btn" data-filter="pc">PC</button>
 
     <div class="search-input-wrap">
       <span class="search-icon" aria-hidden="true">⌕</span>
-      <input
-        id="search-input"
-        type="search"
-        class="search-input"
-        placeholder="buscar..."
-        autocomplete="off"
-        spellcheck="false"
-      />
+      <input id="search-input" type="search" class="search-input" placeholder="buscar..." autocomplete="off"
+        spellcheck="false" />
       <button class="search-clear" id="search-clear" aria-label="Limpar busca" style="display:none;">✕</button>
     </div>
   </div>
@@ -94,13 +90,13 @@
       <span class="section-label">// jogos analisados</span>
       <span class="section-count" id="games-count" aria-live="polite">0</span>
       <div class="sort-controls" role="group" aria-label="Ordenar por">
-        <button class="sort-btn active" data-sort="az"    title="A-Z">A-Z</button>
-        <button class="sort-btn"        data-sort="nota"  title="Maior nota">★ NOTA</button>
-        <button class="sort-btn"        data-sort="recente" title="Mais recente">ANO</button>
+        <button class="sort-btn active" data-sort="az" title="A-Z">A-Z</button>
+        <button class="sort-btn" data-sort="nota" title="Maior nota">★ NOTA</button>
+        <button class="sort-btn" data-sort="recente" title="Mais recente">ANO</button>
       </div>
       <div class="view-toggle" role="group" aria-label="Modo de exibição">
         <button class="view-btn active" data-view="grid" title="Grade" aria-label="Grade">⊞</button>
-        <button class="view-btn"        data-view="list" title="Lista" aria-label="Lista">☰</button>
+        <button class="view-btn" data-view="list" title="Lista" aria-label="Lista">☰</button>
       </div>
     </div>
     <div class="games-grid" id="games-grid" aria-label="Lista de jogos">
@@ -132,7 +128,8 @@
             parseInt(data.value).toLocaleString('pt-BR');
         }
       })
-      .catch(() => {});
+      .catch(() => { });
   </script>
 </body>
+
 </html>
