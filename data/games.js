@@ -14,7 +14,7 @@ const GAMES = [
     publicadora: "Sony Interactive Entertainment",
     ano: 2018,
     nota: 9.2,
-    capa: "imagens/spider-man.jpg",        // ← coloque a imagem aqui
+    capa: "imagens/Spider-Man.jpg",        // ← coloque a imagem aqui
     resumo: "O Homem-Aranha definitivo — Manhattan nunca foi tão divertida de atravessar.",
     analise: `
       <p>Quando a Insomniac Games assumiu o controle do Homem-Aranha, muita gente duvidou. Como um estúdio conhecido por franquias coloridas e despretenciosas conseguiria capturar a essência de um dos super-heróis mais amados? A resposta chegou em setembro de 2018 e foi devastadora: sim, eles conseguiram.</p>
