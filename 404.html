@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — L.B.R.LOG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .notfound-wrap {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+    .notfound-code {
+      font-family: var(--font-title);
+      font-size: clamp(6rem, 20vw, 14rem);
+      font-weight: 900;
+      line-height: 1;
+      color: var(--red-hot);
+      text-shadow: 0 0 30px var(--red-glow), 0 0 80px var(--red-glow);
+      animation: logo-flicker 6s infinite;
+      letter-spacing: -0.02em;
+    }
+    .notfound-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--grey-dim);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      margin-top: -0.5rem;
+    }
+    .notfound-msg {
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      color: var(--grey);
+      font-weight: 300;
+      max-width: 400px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+    .notfound-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(204,0,26,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(204,0,26,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+  <div class="scanline-sweep" aria-hidden="true"></div>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="L.B.R.LOG — Início">
+        <span class="logo-lbr">L.B.R</span>
+        <span class="logo-sep">.</span>
+        <span class="logo-log">LOG</span>
+      </a>
+      <nav>
+        <a href="index.html">Início</a>
+        <a href="sobre.html">Sobre & Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="notfound-wrap">
+    <div class="notfound-grid" aria-hidden="true"></div>
+    <div class="notfound-code">404</div>
+    <p class="notfound-label">// página não encontrada</p>
+    <p class="notfound-msg">
+      Este save file não existe. A página que você procura pode ter sido
+      movida, deletada, ou nunca existiu neste universo.
+    </p>
+    <a href="index.html" class="form-submit" style="text-decoration:none;">
+      <span class="form-submit-text">VOLTAR AO INÍCIO</span>
+      <span class="form-submit-arrow">→</span>
+    </a>
+  </div>
+
+  <footer>
+    <div class="footer-brand"><span>L.B.R</span>.LOG</div>
+    <p class="footer-sub">// percepções honestas sobre videogames</p>
+  </footer>
+
+  <script src="js/particles.js"></script>
+</body>
+</html>

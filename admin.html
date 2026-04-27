@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L.B.R.LOG — ADM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+  <div class="scanline-sweep" aria-hidden="true"></div>
+
+  <!-- ===== TELA DE LOGIN ===== -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-box">
+      <div class="login-logo">
+        <span class="logo-lbr">L.B.R</span><span class="logo-sep">.</span><span class="logo-log">LOG</span>
+      </div>
+      <p class="login-sub">// acesso restrito</p>
+
+      <div class="form-group">
+        <label class="form-label" for="login-pass">// senha</label>
+        <input id="login-pass" type="password" class="form-input" placeholder="••••••••" autocomplete="current-password" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="login-token">
+          // github token
+          <span style="opacity:.6;text-transform:none;letter-spacing:.05em;"> — salvo no navegador</span>
+        </label>
+        <input id="login-token" type="password" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
+        <p style="font-family:var(--font-mono);font-size:.6rem;color:var(--grey-dim);margin-top:.4rem;letter-spacing:.1em;">
+          github.com → Settings → Developer settings → Personal access tokens (classic) → permissão: repo
+        </p>
+      </div>
+
+      <div id="login-error" class="form-feedback error" style="display:none;">// senha incorreta.</div>
+
+      <button class="form-submit" id="login-btn" style="width:100%;margin-top:.75rem;justify-content:center;">
+        <span class="form-submit-text">ENTRAR</span>
+        <span class="form-submit-arrow">→</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== PAINEL ADM ===== -->
+  <div id="adm-panel" style="display:none;">
+
+    <header>
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <span class="logo-lbr">L.B.R</span><span class="logo-sep">.</span><span class="logo-log">LOG</span>
+        </a>
+        <nav>
+          <a href="index.html">← Voltar ao site</a>
+          <a href="#" id="logout-btn" style="color:var(--red);">Sair</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="inner-hero">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <p class="hero-eyebrow">// painel de controle</p>
+      <h1 class="inner-hero-title">ADM <em>PANEL</em></h1>
+    </div>
+
+    <div class="inner-page-layout">
+
+      <!-- CONTADOR -->
+      <section class="inner-section">
+        <div class="inner-section-header">
+          <span class="inner-section-tag">// contador de visitas</span>
+          <div class="inner-section-line"></div>
+        </div>
+        <div class="counter-grid">
+          <div class="counter-card">
+            <span class="counter-value" id="visit-count">—</span>
+            <span class="counter-label">visitas totais</span>
+          </div>
+          <div class="counter-info">
+            <p>Contador incrementado a cada visita à página inicial. Serviço: <strong style="color:var(--grey-light)">CountAPI</strong>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORMULÁRIO DE NOVO JOGO -->
+      <section class="inner-section">
+        <div class="inner-section-header">
+          <span class="inner-section-tag">// adicionar novo jogo</span>
+          <div class="inner-section-line"></div>
+        </div>
+
+        <!-- Status de publicação -->
+        <div id="publish-status" style="display:none;" class="form-feedback" style="margin-bottom:1.5rem;"></div>
+
+        <form id="game-form" autocomplete="off">
+          <div class="adm-form-grid">
+
+            <div class="form-group">
+              <label class="form-label" for="g-titulo">// título *</label>
+              <input id="g-titulo" class="form-input" type="text" placeholder="Ex: God of War Ragnarök" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="g-id">// id (automático)</label>
+              <input id="g-id" class="form-input" type="text" placeholder="god-of-war-ragnarok" readonly style="opacity:.5;cursor:not-allowed;" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="g-dev">// desenvolvedora *</label>
+              <input id="g-dev" class="form-input" type="text" placeholder="Ex: Santa Monica Studio" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="g-pub">// publicadora</label>
+              <input id="g-pub" class="form-input" type="text" placeholder="Ex: Sony Interactive Entertainment" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="g-ano">// ano *</label>
+              <input id="g-ano" class="form-input" type="number" placeholder="2024" min="1970" max="2099" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="g-nota">// nota (0–10) *</label>
+              <input id="g-nota" class="form-input" type="number" placeholder="9.2" min="0" max="10" step="0.1" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="g-plataformas">// plataformas * <small>(vírgula)</small></label>
+              <input id="g-plataformas" class="form-input" type="text" placeholder="PS5, PC, Xbox Series" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="g-generos">// gêneros * <small>(vírgula)</small></label>
+              <input id="g-generos" class="form-input" type="text" placeholder="Ação, Aventura, RPG" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="g-destaque">// destaque na home?</label>
+              <select id="g-destaque" class="form-input form-select">
+                <option value="false">Não</option>
+                <option value="true">Sim (aparece na vitrine)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="g-capa">// caminho da capa</label>
+              <input id="g-capa" class="form-input" type="text" placeholder="imagens/nome-do-jogo.jpg" />
+            </div>
+
+            <div class="form-group adm-form-full">
+              <label class="form-label" for="g-resumo">// resumo (frase de impacto) *</label>
+              <input id="g-resumo" class="form-input" type="text" placeholder="Uma frase que capture a essência do jogo." required />
+            </div>
+
+            <div class="form-group adm-form-full">
+              <label class="form-label" for="g-analise">
+                // análise completa * <small>(linha em branco entre parágrafos)</small>
+              </label>
+              <textarea id="g-analise" class="form-input form-textarea adm-analise" rows="12"
+                placeholder="Escreva sua análise aqui.
+
+Deixe uma linha em branco entre parágrafos." required></textarea>
+            </div>
+
+          </div>
+
+          <div class="adm-form-actions">
+            <button type="submit" class="form-submit" id="publish-btn">
+              <span class="form-submit-text">PUBLICAR NO SITE</span>
+              <span class="form-submit-arrow">↑</span>
+            </button>
+            <span style="font-family:var(--font-mono);font-size:.68rem;color:var(--grey-dim);">
+              O jogo será adicionado ao games.js e o site atualizado em ~30 segundos.
+            </span>
+          </div>
+        </form>
+      </section>
+
+    </div>
+
+    <footer>
+      <div class="footer-brand"><span>L.B.R</span>.LOG</div>
+      <p class="footer-sub">// painel de controle — acesso restrito</p>
+    </footer>
+
+  </div>
+
+  <script src="js/particles.js"></script>
+  <script>
+  // ============================================================
+  // ✏️ MUDE A SENHA AQUI
+  // ============================================================
+  const ADM_PASS = 'lbr2025';
+
+  // GitHub — já configurado
+  const GH_USER = 'lubuono97-hash';
+  const GH_REPO = 'L.B.R.LOG';
+  const GH_FILE = 'data/games.js';
+  const GH_API  = 'https://api.github.com';
+
+  let ghToken = '';
+
+  // ===========================================================
+  // LOGIN
+  // ===========================================================
+  const loginScreen = document.getElementById('login-screen');
+  const admPanel    = document.getElementById('adm-panel');
+  const loginPass   = document.getElementById('login-pass');
+  const loginTokenEl= document.getElementById('login-token');
+  const loginError  = document.getElementById('login-error');
+
+  // Recupera token salvo
+  loginTokenEl.value = sessionStorage.getItem('gh_token') || '';
+
+  function tryLogin() {
+    if (loginPass.value !== ADM_PASS) {
+      loginError.style.display = 'block';
+      loginPass.value = '';
+      loginPass.focus();
+      return;
+    }
+    if (!loginTokenEl.value.trim()) {
+      loginError.textContent = '// token do github é obrigatório.';
+      loginError.style.display = 'block';
+      loginTokenEl.focus();
+      return;
+    }
+    ghToken = loginTokenEl.value.trim();
+    sessionStorage.setItem('gh_token', ghToken);
+    loginError.style.display = 'none';
+    loginScreen.style.display = 'none';
+    admPanel.style.display    = 'block';
+    loadVisitCount();
+  }
+
+  document.getElementById('login-btn').addEventListener('click', tryLogin);
+  loginPass.addEventListener('keydown',   e => { if (e.key === 'Enter') loginTokenEl.focus(); });
+  loginTokenEl.addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+
+  document.getElementById('logout-btn').addEventListener('click', e => {
+    e.preventDefault();
+    sessionStorage.removeItem('gh_token');
+    ghToken = '';
+    admPanel.style.display    = 'none';
+    loginScreen.style.display = 'flex';
+    loginPass.value = '';
+  });
+
+  // ===========================================================
+  // CONTADOR DE VISITAS (só leitura)
+  // ===========================================================
+  function loadVisitCount() {
+    fetch('https://api.countapi.xyz/get/lubuono97-hash-lbr-log/visits')
+      .then(r => r.json())
+      .then(data => {
+        if (data.value !== undefined) {
+          document.getElementById('visit-count').textContent =
+            parseInt(data.value).toLocaleString('pt-BR');
+        }
+      })
+      .catch(() => {
+        document.getElementById('visit-count').textContent = 'indisponível';
+      });
+  }
+
+  // ===========================================================
+  // ID AUTOMÁTICO
+  // ===========================================================
+  document.getElementById('g-titulo').addEventListener('input', function() {
+    document.getElementById('g-id').value = this.value
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9\s-]/g, '')
+      .trim().replace(/\s+/g, '-');
+  });
+
+  // ===========================================================
+  // PUBLICAR — GitHub API
+  // ===========================================================
+  document.getElementById('game-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const btn       = document.getElementById('publish-btn');
+    const statusEl  = document.getElementById('publish-status');
+
+    function setStatus(msg, type) {
+      statusEl.textContent = msg;
+      statusEl.className   = 'form-feedback ' + type;
+      statusEl.style.display = 'block';
+      statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Coleta campos
+    const game = {
+      id:            document.getElementById('g-id').value.trim(),
+      titulo:        document.getElementById('g-titulo').value.trim(),
+      desenvolvedora:document.getElementById('g-dev').value.trim(),
+      publicadora:   document.getElementById('g-pub').value.trim() || document.getElementById('g-dev').value.trim(),
+      ano:           parseInt(document.getElementById('g-ano').value),
+      nota:          parseFloat(document.getElementById('g-nota').value),
+      plataforma:    document.getElementById('g-plataformas').value.split(',').map(s => s.trim()),
+      genero:        document.getElementById('g-generos').value.split(',').map(s => s.trim()),
+      destaque:      document.getElementById('g-destaque').value === 'true',
+      capa:          document.getElementById('g-capa').value.trim() || 'imagens/' + document.getElementById('g-id').value.trim() + '.jpg',
+      resumo:        document.getElementById('g-resumo').value.trim(),
+      analise:       document.getElementById('g-analise').value.trim()
+    };
+
+    if (!game.id) { setStatus('// preencha o título para gerar o ID.', 'error'); return; }
+
+    btn.disabled = true;
+    btn.querySelector('.form-submit-text').textContent = 'BUSCANDO ARQUIVO...';
+    setStatus('// conectando ao GitHub...', 'success');
+
+    try {
+      // 1. Busca o games.js atual no GitHub
+      const getRes = await fetch(
+        `${GH_API}/repos/${GH_USER}/${GH_REPO}/contents/${GH_FILE}`,
+        { headers: { Authorization: 'token ' + ghToken, Accept: 'application/vnd.github.v3+json' } }
+      );
+
+      if (!getRes.ok) {
+        const err = await getRes.json();
+        throw new Error(err.message || 'Erro ao buscar arquivo no GitHub.');
+      }
+
+      const fileData   = await getRes.json();
+      const fileSHA    = fileData.sha;
+      const currentB64 = fileData.content.replace(/\n/g, '');
+      const currentSrc = decodeURIComponent(escape(atob(currentB64)));
+
+      // 2. Executa o conteúdo para obter o array GAMES
+      let GAMES = [];
+      try {
+        const fn = new Function(currentSrc + '; return GAMES;');
+        GAMES = fn();
+      } catch(parseErr) {
+        throw new Error('Não foi possível ler o games.js atual: ' + parseErr.message);
+      }
+
+      // 3. Verifica ID duplicado
+      if (GAMES.find(g => g.id === game.id)) {
+        throw new Error('Já existe um jogo com o ID "' + game.id + '". Edite o título para gerar um ID diferente.');
+      }
+
+      // 4. Monta novo bloco
+      const analiseHtml = game.analise
+        .split(/\n\s*\n/)
+        .map(p => '      <p>' + p.trim().replace(/\n/g, ' ') + '</p>')
+        .join('\n');
+
+      const plats  = game.plataforma.map(p => '"' + p + '"').join(', ');
+      const genres = game.genero.map(g => '"' + g + '"').join(', ');
+      const destaqueStr = game.destaque ? '\n    destaque: true,' : '';
+
+      const newBlock = `  {
+    id:            "${game.id}",
+    titulo:        "${game.titulo}",
+    plataforma:    [${plats}],
+    genero:        [${genres}],
+    desenvolvedora:"${game.desenvolvedora}",
+    publicadora:   "${game.publicadora}",
+    ano:            ${game.ano},
+    nota:           ${game.nota.toFixed(1)},${destaqueStr}
+    capa:          "${game.capa}",
+    resumo:        "${game.resumo}",
+    analise:       \`
+${analiseHtml}
+    \`
+  }`;
+
+      // 5. Serializa todos os jogos (originais + novo) em ordem A-Z
+      // Usa a source original e injeta o novo bloco antes do ]; final
+      const updatedSrc = currentSrc.replace(
+        /\n\];\s*$/,
+        ',\n' + newBlock + '\n];'
+      );
+
+      // 6. Ordena A-Z via regex simples — reescreve o arquivo completo
+      // Estratégia: monta um novo games.js do zero com todos os jogos ordenados
+      const allGames = [...GAMES, game].sort((a, b) =>
+        a.titulo.localeCompare(b.titulo, 'pt-BR')
+      );
+
+      // Serializa cada jogo do array original como string limpa
+      function serializeGame(g) {
+        const p = g.plataforma.map(x => '"' + x + '"').join(', ');
+        const ge= g.genero.map(x => '"' + x + '"').join(', ');
+        const ds= g.destaque ? '\n    destaque: true,' : '';
+        // analise: se vier do array original já é HTML, senão converte
+        let analise = typeof g.analise === 'string' ? g.analise : '';
+        if (!analise.includes('<p>')) {
+          analise = '\n' + analise.split(/\n\s*\n/).map(p =>
+            '      <p>' + p.trim().replace(/\n/g,' ') + '</p>'
+          ).join('\n') + '\n    ';
+        }
+        return `  {
+    id:            "${g.id}",
+    titulo:        "${g.titulo}",
+    plataforma:    [${p}],
+    genero:        [${ge}],
+    desenvolvedora:"${g.desenvolvedora}",
+    publicadora:   "${g.publicadora}",
+    ano:            ${g.ano},
+    nota:           ${parseFloat(g.nota).toFixed(1)},${ds}
+    capa:          "${g.capa}",
+    resumo:        "${g.resumo}",
+    analise:       \`${analise}\`
+  }`;
+      }
+
+      const newFileContent =
+`// =====================================================
+// L.B.R.LOG — Base de dados dos jogos
+// Última atualização: ${new Date().toLocaleString('pt-BR')}
+// Para adicionar jogos use o painel: admin.html
+// =====================================================
+
+const GAMES = [
+${allGames.map(serializeGame).join(',\n')}
+];
+`;
+
+      btn.querySelector('.form-submit-text').textContent = 'PUBLICANDO...';
+      setStatus('// enviando para o GitHub...', 'success');
+
+      // 7. Envia o arquivo atualizado
+      const putRes = await fetch(
+        `${GH_API}/repos/${GH_USER}/${GH_REPO}/contents/${GH_FILE}`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: 'token ' + ghToken,
+            Accept: 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'adm: adiciona ' + game.titulo,
+            content: btoa(unescape(encodeURIComponent(newFileContent))),
+            sha:     fileSHA
+          })
+        }
+      );
+
+      if (!putRes.ok) {
+        const err = await putRes.json();
+        throw new Error(err.message || 'Erro ao enviar arquivo para o GitHub.');
+      }
+
+      // Sucesso!
+      setStatus(
+        '// ✓ "' + game.titulo + '" publicado com sucesso! O site atualiza em ~30 segundos.',
+        'success'
+      );
+      document.getElementById('game-form').reset();
+      document.getElementById('g-id').value = '';
+
+    } catch(err) {
+      setStatus('// erro: ' + err.message, 'error');
+    } finally {
+      btn.disabled = false;
+      btn.querySelector('.form-submit-text').textContent = 'PUBLICAR NO SITE';
+    }
+  });
+  </script>
+</body>
+</html>

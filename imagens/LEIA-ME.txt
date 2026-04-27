@@ -1,0 +1,91 @@
+================================================
+GLITCH.LOG — INSTRUÇÕES DE USO
+================================================
+
+ESTRUTURA DE ARQUIVOS
+---------------------
+glitch-log/
+├── index.html          ← Página inicial
+├── game.html           ← Template de análise (único, reutilizável)
+├── css/
+│   └── style.css       ← Todos os estilos
+├── js/
+│   ├── main.js         ← Lógica da home
+│   └── game.js         ← Lógica da página de jogo
+├── data/
+│   └── games.js        ← ✅ AQUI você adiciona novos jogos
+└── imagens/            ← ✅ AQUI você coloca as capas
+    └── LEIA-ME.txt     ← Este arquivo
+
+
+COMO ADICIONAR IMAGENS DE CAPA
+-------------------------------
+1. Salve a imagem da capa do jogo nesta pasta (imagens/)
+2. Use o mesmo nome que está no campo "capa" do games.js
+   Exemplo: se games.js tem  capa: "imagens/spider-man.jpg"
+            salve como      imagens/spider-man.jpg
+
+Formatos aceitos: .jpg, .jpeg, .png, .webp
+Tamanho ideal: proporção 3:4 (ex: 600x800px)
+Sem imagem? O site mostra um placeholder automático. Tudo bem!
+
+
+COMO ADICIONAR UM NOVO JOGO
+-----------------------------
+1. Abra o arquivo  data/games.js
+2. Copie um dos blocos existentes
+3. Cole-o ANTES do  ];  no final do array
+4. Preencha os campos:
+
+  {
+    id:           "nome-unico-sem-espacos",       ← usado na URL
+    titulo:       "Nome do Jogo",
+    plataforma:   ["PS5", "PC"],                  ← lista
+    genero:       ["Ação", "RPG"],                ← lista
+    desenvolvedora: "Nome do Estúdio",
+    publicadora:  "Nome da Publicadora",
+    ano:          2024,
+    nota:         8.7,                            ← de 0 a 10
+    capa:         "imagens/nome-do-jogo.jpg",     ← caminho da imagem
+    resumo:       "Uma frase de impacto.",
+    analise:      `
+      <p>Primeiro parágrafo da análise...</p>
+      <p>Segundo parágrafo...</p>
+    `
+  },
+
+
+TEMPO ESTIMADO POR NOVO JOGO
+------------------------------
+- Escrever a análise:     ~30–60 min (sua parte, a boa!)
+- Adicionar ao games.js:  ~5 min
+- Adicionar a imagem:     ~2 min
+Total técnico:            < 10 minutos
+
+
+COMO ABRIR O SITE LOCALMENTE
+------------------------------
+Opção 1 (mais fácil):
+  - Instale a extensão "Live Server" no VS Code
+  - Clique com botão direito em index.html → "Open with Live Server"
+
+Opção 2:
+  - Abra o arquivo index.html diretamente no navegador
+  (alguns navegadores bloqueiam JS local — use o Live Server se der erro)
+
+
+COMO PUBLICAR ONLINE (gratuito)
+---------------------------------
+GitHub Pages:
+  1. Crie uma conta em github.com
+  2. Crie um repositório público
+  3. Faça upload de todos os arquivos
+  4. Settings → Pages → Branch: main → Save
+  5. Seu site estará em: https://seu-usuario.github.io/nome-do-repo
+
+Netlify (arrastar e soltar):
+  1. Acesse netlify.com
+  2. Arraste a pasta glitch-log/ para a área de drop
+  3. Pronto — URL gerada na hora
+
+================================================

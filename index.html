@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="L.B.R.LOG — Análises e percepções pessoais sobre videogames." />
+  <meta property="og:title"       content="L.B.R.LOG — Reviews &amp; Análises" />
+  <meta property="og:description" content="Percepções honestas sobre videogames. Sem fórmula, sem patrocínio." />
+  <meta property="og:type"        content="website" />
+  <meta name="twitter:card"       content="summary" />
+  <title>L.B.R.LOG — Reviews & Análises</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Canvas de partículas (fundo animado) -->
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+  <!-- Scanline que desce pela tela -->
+  <div class="scanline-sweep" aria-hidden="true"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="L.B.R.LOG — Início">
+        <span class="logo-lbr">L.B.R</span>
+        <span class="logo-sep">.</span>
+        <span class="logo-log">LOG</span>
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="index.html">Início</a>
+        <a href="sobre.html">Sobre & Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" aria-label="Introdução">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <p class="hero-eyebrow">// análises pessoais</p>
+    <h1>
+      PERCEPÇÕES<br>
+      <em>HONESTAS.</em>
+    </h1>
+    <p class="hero-tagline">
+      Sem fórmula, sem patrocínio.<br>
+      Só o que senti jogando.
+    </p>
+  </section>
+
+  <!-- ===== DESTAQUES ===== -->
+  <section class="destaques-section" aria-label="Destaques" id="destaques-section">
+    <div class="destaques-inner">
+      <div class="inner-section-header" style="padding:0 2rem;max-width:1300px;margin:0 auto 1.5rem;">
+        <span class="inner-section-tag">// destaques</span>
+        <div class="inner-section-line"></div>
+      </div>
+      <div class="destaques-grid" id="destaques-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== FILTROS + BUSCA ===== -->
+  <div class="filters-bar" role="group" aria-label="Filtrar jogos">
+    <span class="filters-label">// filtrar:</span>
+    <button class="filter-btn active" data-filter="todos">Todos</button>
+    <button class="filter-btn" data-filter="ação">Ação</button>
+    <button class="filter-btn" data-filter="rpg">RPG</button>
+    <button class="filter-btn" data-filter="terror">Terror</button>
+    <button class="filter-btn" data-filter="ps5">PS5</button>
+    <button class="filter-btn" data-filter="pc">PC</button>
+
+    <div class="search-input-wrap">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input
+        id="search-input"
+        type="search"
+        class="search-input"
+        placeholder="buscar..."
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button class="search-clear" id="search-clear" aria-label="Limpar busca" style="display:none;">✕</button>
+    </div>
+  </div>
+
+  <!-- ===== GRID DE JOGOS ===== -->
+  <section class="games-section" aria-label="Jogos analisados">
+    <div class="section-header">
+      <span class="section-label">// jogos analisados</span>
+      <span class="section-count" id="games-count" aria-live="polite">0</span>
+      <div class="sort-controls" role="group" aria-label="Ordenar por">
+        <button class="sort-btn active" data-sort="az"    title="A-Z">A-Z</button>
+        <button class="sort-btn"        data-sort="nota"  title="Maior nota">★ NOTA</button>
+        <button class="sort-btn"        data-sort="recente" title="Mais recente">ANO</button>
+      </div>
+      <div class="view-toggle" role="group" aria-label="Modo de exibição">
+        <button class="view-btn active" data-view="grid" title="Grade" aria-label="Grade">⊞</button>
+        <button class="view-btn"        data-view="list" title="Lista" aria-label="Lista">☰</button>
+      </div>
+    </div>
+    <div class="games-grid" id="games-grid" aria-label="Lista de jogos">
+      <div class="no-results">// carregando...</div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-brand"><span>L.B.R</span>.LOG</div>
+    <p class="footer-sub">// percepções honestas sobre videogames</p>
+    <p class="footer-counter">
+      <span class="footer-counter-label">// visitantes</span>
+      <span class="footer-counter-value" id="footer-visit-count">—</span>
+    </p>
+  </footer>
+
+  <script src="data/games.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/particles.js"></script>
+  <script>
+    // Contador de visitas — CountAPI (countapi.xyz)
+    // Namespace único do seu site — não precisa configurar nada
+    fetch('https://api.countapi.xyz/hit/lubuono97-hash-lbr-log/visits')
+      .then(r => r.json())
+      .then(data => {
+        if (data.value !== undefined) {
+          document.getElementById('footer-visit-count').textContent =
+            parseInt(data.value).toLocaleString('pt-BR');
+        }
+      })
+      .catch(() => {});
+  </script>
+</body>
+</html>

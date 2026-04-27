@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L.B.R.LOG</title>
+  <meta property="og:type"    content="article" />
+  <meta property="og:site_name" content="L.B.R.LOG" />
+  <meta id="og-title"       property="og:title"       content="L.B.R.LOG" />
+  <meta id="og-description" property="og:description" content="" />
+  <meta id="og-image"       property="og:image"       content="" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Canvas de partículas (fundo animado) -->
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+  <!-- Scanline que desce pela tela -->
+  <div class="scanline-sweep" aria-hidden="true"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="L.B.R.LOG — Início">
+        <span class="logo-lbr">L.B.R</span>
+        <span class="logo-sep">.</span>
+        <span class="logo-log">LOG</span>
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="index.html">Início</a>
+        <a href="sobre.html">Sobre & Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO COM CAPA DO JOGO ===== -->
+  <div class="game-page-hero" aria-hidden="true">
+    <img id="hero-bg" class="game-page-hero-bg" src="" alt="" />
+    <div id="hero-bg-ph" class="game-page-hero-bg-placeholder" style="display:none;"></div>
+    <div class="game-page-hero-overlay"></div>
+    <a href="index.html" class="back-btn" aria-label="Voltar para a página inicial">← voltar</a>
+  </div>
+
+  <!-- ===== LAYOUT PRINCIPAL ===== -->
+  <div class="game-page-layout">
+
+    <!-- Sidebar: capa, nota, metadados -->
+    <aside class="game-sidebar" aria-label="Informações do jogo">
+
+      <img id="cover-img" class="game-cover-main" src="" alt="" />
+      <div
+        id="cover-ph"
+        class="game-cover-ph"
+        style="display:none;"
+        aria-hidden="true"
+      >
+        // adicione a imagem<br>em imagens/
+      </div>
+
+      <div class="score-block">
+        <span id="score" class="score-value">—</span>
+        <span class="score-tag">// nota pessoal</span>
+      </div>
+
+      <div class="game-meta-table" aria-label="Ficha técnica">
+        <div class="meta-item">
+          <span class="meta-key">desenvolvedora</span>
+          <span class="meta-val" id="meta-dev">—</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">ano</span>
+          <span class="meta-val" id="meta-year">—</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">plataformas</span>
+          <span class="meta-val" id="meta-platforms">—</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">gênero</span>
+          <span class="meta-val" id="meta-genre">—</span>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- Conteúdo: título, resumo, análise -->
+    <main class="game-main-content" aria-label="Análise do jogo">
+
+      <h1 class="game-page-title" id="game-title">—</h1>
+      <div class="game-page-dev" id="game-dev">—</div>
+
+      <div class="genre-tags" id="genre-tags" aria-label="Gêneros"></div>
+
+      <blockquote class="game-summary-quote" id="game-summary">—</blockquote>
+
+      <div class="analise-header" aria-hidden="true">análise completa</div>
+
+      <div class="analise-text" id="game-analise" aria-label="Texto da análise"></div>
+
+    </main>
+
+  </div>
+
+  <!-- ===== NAVEGAÇÃO ENTRE JOGOS ===== -->
+  <nav class="game-nav-bar" id="game-nav-bar" aria-label="Navegação entre jogos">
+    <a href="#" class="game-nav-btn" id="nav-prev">
+      <span class="game-nav-arrow">←</span>
+      <span class="game-nav-info">
+        <span class="game-nav-label">// anterior</span>
+        <span class="game-nav-title" id="nav-prev-title">—</span>
+      </span>
+    </a>
+    <a href="index.html" class="game-nav-home">⊞ todos os jogos</a>
+    <a href="#" class="game-nav-btn game-nav-btn-right" id="nav-next">
+      <span class="game-nav-info" style="text-align:right;">
+        <span class="game-nav-label">// próximo</span>
+        <span class="game-nav-title" id="nav-next-title">—</span>
+      </span>
+      <span class="game-nav-arrow">→</span>
+    </a>
+  </nav>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-brand"><span>L.B.R</span>.LOG</div>
+    <p class="footer-sub">// percepções honestas sobre videogames</p>
+  </footer>
+
+  <script src="data/games.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/particles.js"></script>
+</body>
+</html>
