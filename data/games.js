@@ -222,7 +222,7 @@ const GAMES = [
       <p>A movimentação recebeu um upgrade massivo com a adição do dash e do gancho, tornando o Slayer mais ágil do que nunca. O design de níveis agora incorpora elementos de plataforma e verticalidade que mantêm o ímpeto lá no alto. Esses elementos não são apenas preenchimento; são vitais para navegar na arena e flanquear ameaças.</p>
       <p>Visualmente, o jogo é um benchmark técnico, apresentando performance impecável mesmo em cenários colossais e lotados de inimigos. A direção de arte captura as paisagens infernais com detalhes soberbos. A trilha sonora de Mick Gordon é a obra-prima definitiva do metal industrial, servindo como combustível para a carnificina.</p>
       <p>Surpreendentemente, Eternal mergulha fundo no lore, expandindo a história do Slayer e das Sentinelas da Noite de forma épica. Embora a narrativa seja mais presente, ela nunca atrapalha a experiência principal ou desacelera o ritmo. Ela apenas confere uma escala grandiosa à cruzada solitária contra os exércitos do Inferno.</p>
-      <p>Apesar de uma curva de aprendizado íngreme que pode desafiar iniciantes, o título é um triunfo do design de ação pura. Doom Eternal exige perfeição e, em troca, entrega a sensação de poder mais satisfatória já vista em um shooter. É uma celebração técnica, barulhenta e absolutamente brilhante do combate vi.</p>
+      <p>Apesar de uma curva de aprendizado íngreme que pode desafiar iniciantes, o título é um triunfo do design de ação pura. Doom Eternal exige perfeição e, em troca, entrega a sensação de poder mais satisfatória já vista em um shooter. É uma celebração técnica, barulhenta e absolutamente brilhante do combate viceral de Doom.</p>
     `
   },
   {
